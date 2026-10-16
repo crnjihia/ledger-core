@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ledger Core | High-Throughput Core Banking Engine</title>
+  <meta name="description" content="Production-grade core banking transaction ledger engine built with Spring Boot 3, PostgreSQL, Redis, and Flyway. Features immutable double-entry bookkeeping, RTGS fund settlement, M-Pesa B2C disbursements with auto-reversals, deterministic deadlock-free concurrency, and multi-tier idempotency.">
+  <meta name="author" content="crnjihia">
+  <meta property="og:title" content="Ledger Core | Immutable Double-Entry Core Banking Engine">
+  <meta property="og:description" content="High-concurrency RTGS & M-Pesa settlement platform with zero-sum invariant verification and multi-tier idempotency.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://crnjihia.github.io/ledger-core/">
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link rel="stylesheet" href="index.css">
+</head>
+<body>
+  <!-- Ambient Glow Effects -->
+  <div class="bg-ambient" aria-hidden="true">
+    <div class="ambient-blob ambient-1"></div>
+    <div class="ambient-blob ambient-2"></div>
+    <div class="ambient-blob ambient-3"></div>
+  </div>
+
+  <!-- Navigation Bar -->
+  <header class="navbar">
+    <div class="container nav-container">
+      <a href="#hero" class="brand">
+        <div class="brand-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="2" y="5" width="20" height="14" rx="3" />
+            <line x1="2" y1="10" x2="22" y2="10" />
+            <circle cx="7" cy="15" r="1.5" />
+          </svg>
+        </div>
+        <span>Ledger Core</span>
+        <span class="brand-badge">v1.0.0</span>
+      </a>
+
+      <nav>
+        <ul class="nav-links">
+          <li><a href="#hero" class="nav-link">Overview</a></li>
+          <li><a href="#simulator" class="nav-link">Interactive Sandbox</a></li>
+          <li><a href="#architecture" class="nav-link">Architecture</a></li>
+          <li><a href="#api" class="nav-link">API Explorer</a></li>
+        </ul>
+      </nav>
+
+      <div class="nav-actions">
+        <a href="https://github.com/crnjihia/ledger-core" target="_blank" rel="noopener noreferrer" class="btn-github">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/>
+          </svg>
+          <span>GitHub</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <main>
+    <section id="hero" class="hero">
+      <div class="container">
+        <div class="hero-pill">
+          <span class="pulse-dot"></span>
+          <span>Zero-Sum Invariant Engine &bull; Production Verified</span>
+        </div>
+
+        <h1 class="hero-title">Immutable Double-Entry<br>Core Banking Engine</h1>
+        <p class="hero-subtitle">
+          Designed for Kenya's RTGS and M-Pesa clearing flows. Engineered with Spring Boot 3, PostgreSQL, Redis, pessimistic locking, and multi-tier idempotency for zero financial discrepancies.
+        </p>
+
+        <div class="hero-actions">
+          <a href="#simulator" class="btn-primary">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+              <polygon points="5 3 19 12 5 21 5 3"/>
+            </svg>
+            <span>Launch Live Sandbox</span>
+          </a>
+          <a href="#api" class="btn-secondary">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+              <polyline points="16 18 22 12 16 6"/>
+              <polyline points="8 6 2 12 8 18"/>
+            </svg>
+            <span>Explore REST API</span>
+          </a>
+        </div>
+
+        <!-- Metric Stat Cards -->
+        <div class="metrics-grid">
+          <div class="metric-card">
+            <div class="metric-header">
+              <span class="metric-title">Settled Volume</span>
+              <span class="metric-icon">KES</span>
+            </div>
+            <div class="metric-val" id="heroVolume">KES 195,000.00</div>
+            <div class="metric-desc">Live cumulative ledger postings</div>
+          </div>
+
+          <div class="metric-card">
+            <div class="metric-header">
+              <span class="metric-title">Transactions</span>
+              <span class="metric-icon">#</span>
+            </div>
+            <div class="metric-val" id="heroCount">2</div>
+            <div class="metric-desc">Total balanced double-entry legs</div>
+          </div>
+
+          <div class="metric-card">
+            <div class="metric-header">
+              <span class="metric-title">Concurrency</span>
+              <span class="metric-icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
+                </svg>
+              </span>
+            </div>
+            <div class="metric-val" style="color:var(--cyan-400);">50 Threads</div>
+            <div class="metric-desc">0 deadlocks &bull; Sorted pessimistic locks</div>
+          </div>
+
+          <div class="metric-card">
+            <div class="metric-header">
+              <span class="metric-title">Idempotency Replay</span>
+              <span class="metric-icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"/>
+                </svg>
+              </span>
+            </div>
+            <div class="metric-val" style="color:var(--emerald-400);">&lt; 1ms</div>
+            <div class="metric-desc">Redis fast-path cache hit</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Interactive Simulator Section -->
+    <section id="simulator" class="section">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag">Interactive Simulation Engine</span>
+          <h2 class="section-title">Core Banking Transaction Sandbox</h2>
+          <p class="section-desc">
+            Simulate RTGS inter-account transfers and M-Pesa B2C disbursements with real-time double-entry posting and mathematical invariant checks.
+          </p>
+        </div>
+
+        <!-- Simulator Tabs Navigation -->
+        <div class="tabs-nav" role="tablist">
+          <button class="tab-btn active" data-target="tabRtgs" id="tabBtnRtgs" role="tab" aria-selected="true">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <line x1="12" y1="1" x2="12" y2="23"/>
+              <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
+            </svg>
+            <span>RTGS Transfer</span>
+          </button>
+          <button class="tab-btn" data-target="tabMpesa" id="tabBtnMpesa" role="tab" aria-selected="false">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="5" y="2" width="14" height="20" rx="2" ry="2"/>
+              <line x1="12" y1="18" x2="12.01" y2="18"/>
+            </svg>
+            <span>M-Pesa B2C Settlement</span>
+          </button>
+        </div>
+
+        <!-- Dynamic Account Cards View -->
+        <div class="balance-cards-grid" id="accountCardsContainer">
+          <!-- Populated by app.js -->
+        </div>
+
+        <!-- Simulator Layout: Left (Controls + Pipeline), Right (Live Ledger Table) -->
+        <div class="simulator-layout">
+          <!-- Left Column: Tabs Content -->
+          <div class="sim-panel">
+            <!-- TAB 1: RTGS Transfer -->
+            <div id="tabRtgs" class="tab-content">
+              <div class="sim-panel-header">
+                <div class="sim-panel-title">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="7" y1="17" x2="17" y2="7"/>
+                    <polyline points="7 7 17 7 17 17"/>
+                  </svg>
+                  <span>Initiate RTGS Transfer</span>
+                </div>
+                <span class="acc-badge" style="background:rgba(16,185,129,0.15);color:var(--emerald-400);">ACID PESSIMISTIC</span>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="xferFrom">Source Account</label>
+                <select class="form-select" id="xferFrom">
+                  <option value="acc-1">John Doe - ACC-2026-001 (Savings)</option>
+                  <option value="acc-2">Alice Wangari - ACC-2026-002 (Current)</option>
+                  <option value="acc-suspense">M-Pesa Clearing (Settlement Suspense)</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="xferTo">Destination Account</label>
+                <select class="form-select" id="xferTo">
+                  <option value="acc-2">Alice Wangari - ACC-2026-002 (Current)</option>
+                  <option value="acc-1">John Doe - ACC-2026-001 (Savings)</option>
+                  <option value="acc-suspense">M-Pesa Clearing (Settlement Suspense)</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="xferAmount">Transfer Amount (KES)</label>
+                <input type="number" class="form-input" id="xferAmount" value="5000.00" min="1" step="100">
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="xferIdempKey">Idempotency Key (UUID)</label>
+                <div class="input-with-button">
+                  <input type="text" class="form-input" id="xferIdempKey" style="font-family:var(--font-mono);font-size:0.8rem;">
+                  <button type="button" class="btn-small" id="btnNewKey">New Key</button>
+                </div>
+              </div>
+
+              <!-- Execution Pipeline Visualizer -->
+              <div class="pipeline-box">
+                <div class="pipeline-header">Spring Boot Atomic Execution Pipeline</div>
+                <div class="pipeline-steps" id="pipelineSteps">
+                  <div class="step-item">
+                    <span class="step-badge">1</span>
+                    <span>Bucket4j Rate Limiting (10 req/min/IP)</span>
+                  </div>
+                  <div class="step-item">
+                    <span class="step-badge">2</span>
+                    <span>Multi-Tier Idempotency Key Evaluation</span>
+                  </div>
+                  <div class="step-item">
+                    <span class="step-badge">3</span>
+                    <span>Pessimistic Locks (Sorted by UUID Ascending)</span>
+                  </div>
+                  <div class="step-item">
+                    <span class="step-badge">4</span>
+                    <span>Solvency Validation & Balance Deduction</span>
+                  </div>
+                  <div class="step-item">
+                    <span class="step-badge">5</span>
+                    <span>Double-Entry Immutable Post & Invariant Commit</span>
+                  </div>
+                </div>
+              </div>
+
+              <button type="button" class="btn-execute" id="btnExecuteXfer">
+                Execute RTGS Transfer
+              </button>
+            </div>
+
+            <!-- TAB 2: M-Pesa B2C Disbursement -->
+            <div id="tabMpesa" class="tab-content" style="display:none;">
+              <div class="sim-panel-header">
+                <div class="sim-panel-title">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <rect x="5" y="2" width="14" height="20" rx="2" ry="2"/>
+                    <line x1="12" y1="18" x2="12.01" y2="18"/>
+                  </svg>
+                  <span>M-Pesa B2C Disbursement</span>
+                </div>
+                <span class="acc-badge" style="background:rgba(6,182,212,0.15);color:var(--cyan-400);">DARAJA SETTLEMENT</span>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="disbFrom">Funding Account</label>
+                <select class="form-select" id="disbFrom">
+                  <option value="acc-1">John Doe - ACC-2026-001 (Savings)</option>
+                  <option value="acc-2">Alice Wangari - ACC-2026-002 (Current)</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="disbPhone">Recipient MSISDN (Phone)</label>
+                <input type="text" class="form-input" id="disbPhone" value="+254712345678">
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="disbAmount">Disbursement Amount (KES)</label>
+                <input type="number" class="form-input" id="disbAmount" value="2500.00" min="10" step="50">
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="disbScenario">Settlement Scenario</label>
+                <select class="form-select" id="disbScenario">
+                  <option value="SUCCESS">Instant Success (Safaricom Daraja Confirmed)</option>
+                  <option value="FAILURE">Provider Rejection (Auto-Reversal Refund Legs)</option>
+                  <option value="TIMEOUT">Gateway Timeout (SENT Status & Webhook Callback)</option>
+                </select>
+              </div>
+
+              <div id="disbReceiptBox" style="margin-bottom:20px;"></div>
+
+              <button type="button" class="btn-execute" id="btnExecuteDisb">
+                Disburse to M-Pesa
+              </button>
+            </div>
+          </div>
+
+          <!-- Right Column: Live Immutable Ledger & Invariant Status -->
+          <div class="sim-panel" style="display:flex; flex-direction:column; justify-content:space-between;">
+            <div>
+              <div class="sim-panel-header">
+                <div class="sim-panel-title">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                    <polyline points="14 2 14 8 20 8"/>
+                    <line x1="16" y1="13" x2="8" y2="13"/>
+                    <line x1="16" y1="17" x2="8" y2="17"/>
+                  </svg>
+                  <span>Immutable Double-Entry Ledger Stream</span>
+                </div>
+                <span class="acc-badge">APPEND-ONLY</span>
+              </div>
+
+              <div class="table-container">
+                <table class="ledger-table" id="ledgerTable">
+                  <thead>
+                    <tr>
+                      <th>Time</th>
+                      <th>Txn Ref</th>
+                      <th>Account</th>
+                      <th>Type</th>
+                      <th>Amount</th>
+                      <th>Running Bal</th>
+                    </tr>
+                  </thead>
+                  <tbody id="ledgerTableBody">
+                    <!-- Populated by app.js -->
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <!-- Zero-Sum Invariant Reconciliation Status -->
+            <div class="reconcile-bar" id="reconcileBar">
+              <div class="reconcile-info">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--emerald-400)" stroke-width="2.5">
+                  <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                  <polyline points="22 4 12 14.01 9 11.01"/>
+                </svg>
+                <div>
+                  <div class="reconcile-status" id="reconcileStatus">✓ Zero-Sum Invariant Holds (Δ = 0.00)</div>
+                  <div class="reconcile-math" id="reconcileMath">∑ Credits (KES 195,000.00) - ∑ Debits (KES 195,000.00) = KES 0.00</div>
+                </div>
+              </div>
+              <span class="acc-badge" style="background:rgba(16,185,129,0.2);color:var(--emerald-400);">ACID AUDIT</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Architecture & Core Banking Tenets -->
+    <section id="architecture" class="section">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag">System Architecture</span>
+          <h2 class="section-title">Engineered for High-Stakes Financial Integrity</h2>
+          <p class="section-desc">
+            Proven banking patterns preventing race conditions, balance corruption, and phantom double-spends.
+          </p>
+        </div>
+
+        <div class="features-grid">
+          <div class="feature-card">
+            <div class="feature-icon-wrapper">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+                <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+              </svg>
+            </div>
+            <h3 class="feature-title">Deterministic Locking</h3>
+            <p class="feature-desc">
+              Accounts are acquired using <code>PESSIMISTIC_WRITE</code> in strict ascending UUID order via <code>findAllByIdInOrderByIdAsc</code>. This completely eliminates circular deadlock conditions across concurrent transfers.
+            </p>
+          </div>
+
+          <div class="feature-card">
+            <div class="feature-icon-wrapper">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"/>
+              </svg>
+            </div>
+            <h3 class="feature-title">Multi-Tier Idempotency</h3>
+            <p class="feature-desc">
+              Combines Redis 7 fast-path caching (sub-millisecond replay) with PostgreSQL durable claims. Payloads are SHA-256 hashed to instantly reject conflicting retries with <code>HTTP 409 Conflict</code>.
+            </p>
+          </div>
+
+          <div class="feature-card">
+            <div class="feature-icon-wrapper">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="23 4 23 10 17 10"/>
+                <polyline points="1 20 1 14 7 14"/>
+                <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/>
+              </svg>
+            </div>
+            <h3 class="feature-title">M-Pesa B2C & Reversals</h3>
+            <p class="feature-desc">
+              Disbursements hold funds in an intermediate <code>SUSPENSE</code> clearing account. On provider rejections, automated atomic reversal entries credit back the customer without manual operational intervention.
+            </p>
+          </div>
+
+          <div class="feature-card">
+            <div class="feature-icon-wrapper">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
+              </svg>
+            </div>
+            <h3 class="feature-title">Immutable Double-Entry</h3>
+            <p class="feature-desc">
+              Every fund movement produces balanced DEBIT and CREDIT entries with calculated running balances. The mathematical invariant $\sum \text{Credits} - \sum \text{Debits} = 0$ is continuously enforced.
+            </p>
+          </div>
+
+          <div class="feature-card">
+            <div class="feature-icon-wrapper">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+              </svg>
+            </div>
+            <h3 class="feature-title">Bucket4j Rate Limiting</h3>
+            <p class="feature-desc">
+              Token-bucket rate limiting safeguards high-frequency endpoints against brute-force replay or distributed volumetric attacks, returning <code>HTTP 429 Too Many Requests</code> with standard retry headers.
+            </p>
+          </div>
+
+          <div class="feature-card">
+            <div class="feature-icon-wrapper">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"/>
+                <polyline points="12 6 12 12 14 14"/>
+              </svg>
+            </div>
+            <h3 class="feature-title">ELK & Actuator Observability</h3>
+            <p class="feature-desc">
+              Structured JSON logging with Logstash, unique correlation IDs on every HTTP request thread via MDC, and Prometheus metrics for real-time latency and transfer throughput tracking.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- REST API Showcase Section -->
+    <section id="api" class="api-section">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag">Developer Interface</span>
+          <h2 class="section-title">Production REST API</h2>
+          <p class="section-desc">
+            Clean, versioned endpoints authenticated via JWT Bearer tokens with strict RFC 7807 problem responses.
+          </p>
+        </div>
+
+        <div class="api-grid">
+          <nav class="api-nav-list" aria-label="API Endpoints">
+            <div class="api-nav-item active" data-api="accounts">
+              <span class="http-method http-post">POST</span>
+              <span>Create Account</span>
+            </div>
+            <div class="api-nav-item" data-api="transfers">
+              <span class="http-method http-post">POST</span>
+              <span>Execute Transfer</span>
+            </div>
+            <div class="api-nav-item" data-api="disbursements">
+              <span class="http-method http-post">POST</span>
+              <span>M-Pesa Disbursement</span>
+            </div>
+            <div class="api-nav-item" data-api="reconciliation">
+              <span class="http-method http-get">GET</span>
+              <span>Ledger Reconciliation</span>
+            </div>
+          </nav>
+
+          <div class="api-detail">
+            <h3 class="api-detail-title" id="apiDetailTitle">Create Account</h3>
+            <div class="api-endpoint-badge" id="apiEndpointBadge">POST /api/v1/accounts</div>
+            <p id="apiDesc" style="color:var(--text-muted);margin-bottom:20px;font-size:0.95rem;">
+              Provisions a new bank or wallet account with generated unique account number and optimistic versioning.
+            </p>
+
+            <div style="margin-bottom:16px;">
+              <span class="form-label">cURL Request</span>
+              <div class="code-box">
+                <button type="button" class="btn-copy" data-copy-target="apiCurlCode">Copy</button>
+                <code id="apiCurlCode">curl -X POST http://localhost:8080/api/v1/accounts \
+  -H "Authorization: Bearer $TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "userId": "2f51a213-d725-4f77-b862-fd6d494d25e0",
+    "type": "SAVINGS",
+    "currency": "KES"
+  }'</code>
+              </div>
+            </div>
+
+            <div>
+              <span class="form-label">JSON Response (HTTP 201 Created)</span>
+              <div class="code-box">
+                <button type="button" class="btn-copy" data-copy-target="apiResponseCode">Copy</button>
+                <code id="apiResponseCode">{
+  "id": "e45465ca-79dc-405b-8b29-c4919e1f400b",
+  "accountNumber": "2233440952",
+  "type": "SAVINGS",
+  "currency": "KES",
+  "balance": 0.0000,
+  "status": "ACTIVE",
+  "createdAt": "2026-10-16T15:30:35Z"
+}</code>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-links">
+        <a href="https://github.com/crnjihia/ledger-core" target="_blank" rel="noopener noreferrer">GitHub Repository</a>
+        <a href="https://github.com/crnjihia/ledger-core/releases/tag/v1.0.0" target="_blank" rel="noopener noreferrer">Release v1.0.0</a>
+        <a href="https://github.com/crnjihia/ledger-core/blob/main/RELEASE_NOTES.md" target="_blank" rel="noopener noreferrer">Release Notes</a>
+        <a href="#simulator">Sandbox</a>
+        <a href="#api">API Docs</a>
+      </div>
+      <p>&copy; 2026 Ledger Core. Modelled on Central Bank of Kenya RTGS & Safaricom M-Pesa clearing standards.</p>
+      <p style="margin-top:6px;font-size:0.8rem;color:var(--text-dim);">Built with Spring Boot 3 &bull; PostgreSQL 15 &bull; Redis 7 &bull; Flyway &bull; Testcontainers</p>
+    </div>
+  </footer>
+
+  <!-- Toast Popups Container -->
+  <div class="toast-container" id="toastContainer" aria-live="polite"></div>
+
+  <!-- App Script -->
+  <script src="app.js"></script>
+</body>
+</html>
