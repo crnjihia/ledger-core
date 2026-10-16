@@ -1,0 +1,54 @@
+name: 🐛 Bug Report
+description: Report an unexpected error, race condition, or balance discrepancy.
+title: "[BUG]: "
+labels: ["bug", "triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you for reporting an issue in **Ledger Core**! Please ensure you have checked the [Release Notes](https://github.com/crnjihia/ledger-core/blob/main/RELEASE_NOTES.md) and open issues before submitting.
+
+  - type: input
+    id: version
+    attributes:
+      label: Ledger Core Version
+      description: What version or commit SHA of Ledger Core are you running?
+      placeholder: "e.g. v1.0.0 (commit ed77c8c)"
+    validations:
+      required: true
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Bug Description
+      description: A clear and concise description of what the bug is.
+      placeholder: "Describe what happened..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Steps to Reproduce
+      description: Minimal steps, cURL requests, or integration test code to reproduce the behavior.
+      placeholder: |
+        1. Start containers: docker compose up -d postgres redis
+        2. Execute POST /api/v1/transfers with idempotency key...
+        3. Observe response...
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected Behavior
+      description: What did you expect to happen according to double-entry banking rules?
+    validations:
+      required: true
+
+  - type: textarea
+    id: logs
+    attributes:
+      label: Relevant Logs / Stack Trace
+      description: Paste any server error traces or Docker log outputs.
+      render: shell
