@@ -1,0 +1,30 @@
+# Maven & Build Artifacts
+/target/
+*.jar
+!.mvn/wrapper/maven-wrapper.jar
+
+# Gradle
+.gradle/
+build/
+
+# IDE & Editor files
+.idea/
+*.iml
+*.iws
+*.ipr
+out/
+.vscode/
+.antigravity*
+.system_generated/
+
+# Logs & Runtime
+*.log
+logs/
+
+# Operating System files
+.DS_Store
+Thumbs.db
+
+# Secrets & Local Config
+.env
+*.env.local
