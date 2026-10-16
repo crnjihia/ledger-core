@@ -8,7 +8,7 @@
 
 ## 🌟 Overview
 
-**Ledger Core v1.0.0** is the inaugural production release of our mission-critical, double-entry core banking engine, modeled on Kenya's Real-Time Gross Settlement (RTGS) system and Safaricom M-Pesa B2C settlement flows.
+**Ledger Core v1.0.0** is the inaugural production release of my mission-critical, double-entry core banking engine, modeled on Kenya's Real-Time Gross Settlement (RTGS) system and Safaricom M-Pesa B2C settlement flows.
 
 Engineered with zero-trust banking standards, strict ACID transactional semantics under concurrent high-volume stress, and full regulatory auditability.
 

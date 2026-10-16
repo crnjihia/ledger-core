@@ -1,12 +1,12 @@
 # Contributing to Ledger Core
 
-Thank you for your interest in contributing to **Ledger Core**! As a financial engine, financial correctness, double-entry invariance, and concurrency safety are our highest priorities.
+Thank you for your interest in contributing to **Ledger Core**! As a financial engine, financial correctness, double-entry invariance, and concurrency safety are my highest priorities.
 
 ---
 
 ## Code of Conduct
 
-We are committed to providing a welcoming, inclusive, and professional environment for everyone. Please be respectful and constructive in all discussions and pull requests.
+I am committed to providing a welcoming, inclusive, and professional environment for everyone. Please be respectful and constructive in all discussions and pull requests.
 
 ---
 
@@ -45,7 +45,7 @@ We are committed to providing a welcoming, inclusive, and professional environme
 
 ## Commit Guidelines
 
-We adhere to the [Conventional Commits](https://www.conventionalcommits.org/) format:
+I adhere to the [Conventional Commits](https://www.conventionalcommits.org/) format:
 
 - `feat(scope): ...` for new features
 - `fix(scope): ...` for bug fixes
