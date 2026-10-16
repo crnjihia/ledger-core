@@ -296,6 +296,11 @@ async function executeDisbursement() {
   const fromAcc = state.accounts[fromId];
   const suspenseAcc = state.accounts['acc-suspense'];
 
+  if (!fromAcc) {
+    showToast('Invalid source account selected', 'error');
+    return;
+  }
+
   if (fromAcc.balance < amount) {
     showToast(`Disbursement Rejected: Insufficient balance in ${fromAcc.name}`, 'error');
     return;
