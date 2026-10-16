@@ -1,16 +1,34 @@
 # Ledger Core
 
+[![CI](https://github.com/crnjihia/ledger-core/actions/workflows/ci.yml/badge.svg)](https://github.com/crnjihia/ledger-core/actions/workflows/ci.yml)
+[![Pages](https://img.shields.io/badge/GitHub%20Pages-Live%20Sandbox-059669?style=flat&logo=github)](https://crnjihia.github.io/ledger-core/)
+[![Release](https://img.shields.io/badge/Release-v1.0.0-blue?style=flat&logo=github)](https://github.com/crnjihia/ledger-core/releases/tag/v1.0.0)
+[![Container](https://img.shields.io/badge/GHCR-ghcr.io-2496ED?style=flat&logo=docker)](https://github.com/crnjihia/ledger-core/pkgs/container/ledger-core)
 [![Java 21](https://img.shields.io/badge/Java-21-orange.svg?style=flat&logo=openjdk)](https://openjdk.org/projects/jdk/21/)
 [![Spring Boot](https://img.shields.io/badge/Spring%20Boot-3.3%2F3.4-brightgreen.svg?style=flat&logo=springboot)](https://spring.io/projects/spring-boot)
 [![PostgreSQL](https://img.shields.io/badge/PostgreSQL-16-blue.svg?style=flat&logo=postgresql)](https://www.postgresql.org/)
 [![Redis](https://img.shields.io/badge/Redis-7-red.svg?style=flat&logo=redis)](https://redis.io/)
 [![ELK Stack](https://img.shields.io/badge/ELK-8.13-lightgrey.svg?style=flat&logo=elastic)](https://www.elastic.co/elk-stack)
-[![Docker Compose](https://img.shields.io/badge/Docker-Ready-2496ED.svg?style=flat&logo=docker)](https://www.docker.com/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-> **Production-grade core banking transaction processing engine modelled on Kenya's Real-Time Gross Settlement (RTGS) and M-Pesa mobile money flows.**
+> **Production-grade core banking transaction processing engine modelled on Kenya's Real-Time Gross Settlement (RTGS) and Safaricom M-Pesa mobile money settlement flows.**
 > 
-> Engineered for strict ACID correctness, mathematical double-entry invariant verification, deadlock-free pessimistic locking under high concurrent load, and multi-tier idempotency guarantees.
+> Engineered for strict ACID correctness, mathematical double-entry invariant verification ($\sum \text{Credits} - \sum \text{Debits} = 0$), deadlock-free deterministic locking under high concurrent load, and multi-tier idempotency guarantees.
+
+---
+
+## Interactive Banking Sandbox & Simulator
+
+Experience the double-entry state machine, RTGS transaction pipeline, and M-Pesa B2C auto-reversal flows directly in your browser:
+
+[![Ledger Core Banking Sandbox](docs/assets/preview.png)](https://crnjihia.github.io/ledger-core/)
+
+> **Live Sandbox URL:** [https://crnjihia.github.io/ledger-core/](https://crnjihia.github.io/ledger-core/)
+>
+> * **Interactive RTGS Simulator:** Visualizes the 5-stage settlement pipeline (Bucket4j Rate Limiter $\to$ Multi-Tier Idempotency Evaluation $\to$ Ascending Deterministic Locks $\to$ Balance Check $\to$ Immutable Zero-Sum Commit).
+> * **M-Pesa B2C Simulation:** Demonstrates suspense clearing account routing, Daraja confirmation receipts, and automatic reversal refund legs on provider failures.
+> * **Live Invariant Calculator:** Real-time mathematical verification that $\sum \text{Credits} - \sum \text{Debits} = 0.00$.
+> * **Interactive REST API Explorer:** Switchable endpoints with copyable cURL commands and response payloads.
 
 ---
 
@@ -266,19 +284,30 @@ ledger-core/
 
 ### 1. Clone & Configuration
 ```bash
-git clone https://github.com/your-username/ledger-core.git
+git clone https://github.com/crnjihia/ledger-core.git
 cd ledger-core
 cp .env.example .env
 ```
 
-### 2. Start Supporting Infrastructure
+### 2. Run the Interactive Banking Sandbox (Frontend)
+Run locally in one command:
+```bash
+# Using Python:
+python -m http.server 5173 --directory docs
+
+# Or using Node / npx:
+npx serve docs -l 5173
+```
+Open [http://localhost:5173](http://localhost:5173) (or visit [https://crnjihia.github.io/ledger-core/](https://crnjihia.github.io/ledger-core/)).
+
+### 3. Start Supporting Infrastructure (Backend)
 Spin up PostgreSQL and Redis:
 ```bash
 make docker-up
 # Or: docker compose up -d postgres redis
 ```
 
-### 3. Build & Run Application Locally
+### 4. Build & Run Application Locally
 Run with the bundled Maven wrapper:
 ```bash
 # On Linux/macOS
